@@ -1,0 +1,105 @@
+/* style.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f0e6f7; /* fundo clarinho lilás */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    color: #222; /* texto escuro */
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    height: 300px;
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.page {
+    display: none;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.page.active {
+    display: block;
+}
+
+button#nextButton {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #6b46c1; /* roxo escuro */
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1rem;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Animação fadeIn */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Coração pulsante */
+
+.heart {
+  width: 100px;
+  height: 90px;
+  position: relative;
+  margin: 0 auto 20px auto;
+  background: #e0245e;
+  transform: rotate(-45deg);
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 90px;
+  background: #e0245e;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -50px;
+  left: 0;
+}
+
+.heart::after {
+  top: 0;
+  right: -50px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: rotate(-45deg) scale(1);
+  }
+  50% {
+    transform: rotate(-45deg) scale(1.1);
+  }
+}
+
+#lastPage h2 {
+    text-align: center;
+    color: #6b46c1;
+    font-size: 2.5rem;
+    animation: fadeIn 2s forwards;
+    opacity: 0;
+    animation-delay: 1.5s;
+    animation-fill-mode: forwards;
+}
