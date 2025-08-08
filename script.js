@@ -61,21 +61,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ------- MÚSICA toggle -------
-  const musicToggle = document.getElementById("musicToggle");
-  const bgMusic = document.getElementById("bgMusic");
-  let musicPlaying = false;
-  musicToggle.addEventListener("click", () => {
-    if (!musicPlaying) {
-      bgMusic.play().catch(()=>{}); // alguns browsers exigem interação
-      musicToggle.textContent = "🔊";
-      musicPlaying = true;
-    } else {
-      bgMusic.pause();
-      musicToggle.textContent = "🎵";
-      musicPlaying = false;
-    }
-  });
+  const musicToggle = document.getElementById('musicToggle');
+const bgMusic = document.getElementById('bgMusic');
 
+musicToggle.addEventListener('click', () => {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    musicToggle.textContent = '🔇'; // muda o ícone para mutar
+  } else {
+    bgMusic.pause();
+    musicToggle.textContent = '🎵'; // muda o ícone para tocar
+  }
+});
   // ------- FINAL: coração cresce, explode em partículas e mostra texto -------
   const triggerFinal = document.getElementById("triggerFinal");
   const heart = document.getElementById("heartFinal");
