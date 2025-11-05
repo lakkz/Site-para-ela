@@ -1,47 +1,44 @@
 /* script.js - typing, carta e final com partículas */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // ------- FRASES e TYPING -------
-  const phrases = [
-    "Lembro do seu sorriso como meu lugar favorito.",
-    "Você transforma dias comuns em memórias incríveis.",
-    "Obrigado por cada risada, cada abraço e cada cuidado.",
-    "Com você, aprendi que amor é presença e carinho.",
-    "Quero construir muitos capítulos ao seu lado."
-  ];
-  const typingEl = document.getElementById("typingText");
-  const nextPhraseBtn = document.getElementById("nextPhrase");
-  let phraseIndex = 0;
+// ------- FRASES e TYPING -------
+const phrases = [
+  "Lembro do seu sorriso como meu lugar favorito.",
+  "Você transforma dias comuns em memórias incríveis.",
+  "Obrigado por cada risada, cada abraço e cada cuidado.",
+  "Com você, aprendi que amor é presença e carinho.",
+  "Quero construir muitos capítulos ao seu lado."
+];
 
-  function typePhrase(text, cb) {
-    typingEl.textContent = "";
-    let i = 0;
-    const speed = 28; // ms por caractere
-    const t = setInterval(() => {
-      typingEl.textContent += text.charAt(i);
-      i++;
-      if (i >= text.length) {
-        clearInterval(t);
-        if (typeof cb === "function") setTimeout(cb, 300);
-      }
-    }, speed);
+const typingEl = document.getElementById("typingText");
+const nextPhraseBtn = document.getElementById("nextPhrase");
+let phraseIndex = 0;
+let charIndex = 0;
+let isTyping = false;
+
+function typePhrase() {
+  if (charIndex < phrases[phraseIndex].length) {
+    typingEl.textContent += phrases[phraseIndex].charAt(charIndex);
+    charIndex++;
+    setTimeout(typePhrase, 50); // velocidade de digitação (em ms)
+  } else {
+    isTyping = false; // terminou de digitar
   }
+}
 
-  // inicia com a primeira frase
-  typePhrase(phrases[phraseIndex]);
+nextPhraseBtn.addEventListener("click", () => {
+  if (isTyping) return; // impede clique durante a digitação
 
-  nextPhraseBtn.addEventListener("click", () => {
-    phraseIndex++;
-    if (phraseIndex < phrases.length) {
-      typePhrase(phrases[phraseIndex]);
-    } else {
-      // quando termina as frases, mostra sugestão final
-      typePhrase("Chegou a hora da última surpresa... ✨");
-      nextPhraseBtn.disabled = true;
-      nextPhraseBtn.style.opacity = 0.6;
-    }
-  });
+  phraseIndex = (phraseIndex + 1) % phrases.length; // passa pra próxima frase
+  typingEl.textContent = ""; // limpa texto anterior
+  charIndex = 0;
+  isTyping = true;
+  typePhrase();
+});
 
+// começa com a primeira frase
+isTyping = true;
+typePhrase();
   // ------- CARTINHA SECRETA -------
   const openLetterBtn = document.getElementById("openLetterBtn");
   const letterModal = document.getElementById("letterModal");
@@ -61,16 +58,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ------- MÚSICA toggle -------
-  const musicToggle = document.getElementById('musicToggle');
-const bgMusic = document.getElementById('bgMusic');
+const music = document.getElementById('music');
+const toggle = document.getElementById('musicToggle');
 
-musicToggle.addEventListener('click', () => {
-  if (bgMusic.paused) {
-    bgMusic.play();
-    musicToggle.textContent = '🔇'; // muda o ícone para mutar
+toggle.addEventListener('click', () => {
+  if (music.paused) {
+    music.play();
+    musicToggle.textContent = '🔇 Pausar música'; // muda o ícone para mutar 
   } else {
-    bgMusic.pause();
-    musicToggle.textContent = '🎵'; // muda o ícone para tocar
+    music.pause();
+    musicToggle.textContent = '🎵 Voltar música'; // muda o ícone para tocar
   }
 });
   // ------- FINAL: coração cresce, explode em partículas e mostra texto -------
